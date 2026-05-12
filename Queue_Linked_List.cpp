@@ -62,14 +62,14 @@ public:
             return;
         }
 
-        Node* temp = front;
+        Node* ptr = front;
 
         cout << "Queue elements are: ";
 
-        while (temp != NULL)
+        while (ptr != NULL)
         {
-            cout << temp->data << " ";
-            temp = temp->next;
+            cout << ptr->data << " ";
+            ptr = ptr->next;
         }
 
         cout << endl;
