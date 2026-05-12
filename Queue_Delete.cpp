@@ -57,7 +57,6 @@ public:
             front++;
         }
 
-        cout << item << " deleted successfully\n";
     }
 
     // Display queue
@@ -65,7 +64,7 @@ public:
     {
         if (front == 0)
         {
-            cout << "Queue is empty\n";
+            cout << "Queue is empty";
             return;
         }
 
