@@ -69,7 +69,7 @@ public:
         rear->next = newNode;
         rear = newNode;
 
-        cout << item << " inserted successfully..!!";
+       cout<<endl;
     }
 
     // Display queue :
