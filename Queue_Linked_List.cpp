@@ -6,15 +6,15 @@ class Node
 {
 public:
     int data;
-    Node* next;
+    Node *next;
 };
 
 // Queue class
 class Queue
 {
 private:
-    Node* front;
-    Node* rear;
+    Node *front;
+    Node *rear;
 
 public:
     // Constructor
@@ -35,7 +35,7 @@ public:
         {
             cin >> value;
 
-            Node* newNode = new Node();
+            Node *newNode = new Node();
 
             newNode->data = value;
             newNode->next = NULL;
@@ -62,7 +62,7 @@ public:
             return;
         }
 
-        Node* ptr = front;
+        Node *ptr = front;
 
         cout << "Queue elements are : ";
 

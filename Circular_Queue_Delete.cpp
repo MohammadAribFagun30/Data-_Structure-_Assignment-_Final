@@ -108,8 +108,6 @@ int main()
     cout << "Original Queue:";
     q.display();
 
-    cout << "Deleting front element...";
-
     q.deleting(n);
 
     cout << "Updated Queue:";
