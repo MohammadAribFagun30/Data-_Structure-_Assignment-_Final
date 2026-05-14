@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define N 10
+#define N 100
 
 class Queue {
 private:
@@ -20,7 +20,7 @@ public:
         front = 1;
         rear = n;
 
-        cout << "Enter queue elements:\n";
+        cout << "Enter queue elements : ";
 
         for (int i = 1; i <= n; i++) {
             cin >> queue[i];
@@ -48,7 +48,7 @@ public:
 
         queue[rear] = item;
 
-        cout << item << " inserted successfully\n";
+        cout << item << " inserted successfully..!!";
     }
 
     // Display queue

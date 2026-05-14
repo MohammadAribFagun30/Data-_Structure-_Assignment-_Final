@@ -29,7 +29,7 @@ public:
     {
         int value;
 
-        cout << "Enter queue elements:\n";
+        cout << "Enter queue elements : ";
 
         for (int i = 1; i <= n; i++)
         {
@@ -58,13 +58,13 @@ public:
     {
         if (front == NULL)
         {
-            cout << "Queue is empty\n";
+            cout << "Queue is empty..!";
             return;
         }
 
         Node* ptr = front;
 
-        cout << "Queue elements are: ";
+        cout << "Queue elements are : ";
 
         while (ptr != NULL)
         {
@@ -82,7 +82,7 @@ int main()
 
     int n;
 
-    cout << "Enter number of elements: ";
+    cout << "Enter number of elements : ";
     cin >> n;
 
     q.createQueue(n);
