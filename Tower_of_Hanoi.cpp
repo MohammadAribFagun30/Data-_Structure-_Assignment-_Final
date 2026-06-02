@@ -1,26 +1,32 @@
 #include <iostream>
 using namespace std;
 
-void hanoi(int n, char source, char auxiliary, char destination) {
-    if (n == 1) {
-        cout << "Move disk 1 from " << source
-             << " to " << destination << endl;
+void TOWER(int n, char BEG, char AUX, char END)
+{
+    if (n == 1)
+    {
+        cout << BEG << " -> " << END << endl;
         return;
     }
 
-    hanoi(n - 1, source, destination, auxiliary);
+    // Move n-1 disks from BEG to AUX
+    TOWER(n - 1, BEG, END, AUX);
 
-    cout << "Move disk " << n << " from "
-         << source << " to " << destination << endl;
+    // Move largest disk from BEG to END
+    cout << BEG << " -> " << END << endl;
 
-    hanoi(n - 1, auxiliary, source, destination);
+    // Move n-1 disks from AUX to END
+    TOWER(n - 1, AUX, BEG, END);
 }
 
-int main() {
+int main()
+{
     int n;
+
+    cout << "Enter number of disks: ";
     cin >> n;
 
-    hanoi(n, 'A', 'B', 'C');
+    TOWER(n, 'A', 'B', 'C');
 
     return 0;
 }
