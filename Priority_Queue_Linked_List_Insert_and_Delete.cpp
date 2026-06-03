@@ -1,67 +1,163 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node {
-    int data, priority;
-    Node* next;
+#define P 3  // number of priority levels
+#define N 10 // size per queue
+
+class PriorityQueue
+{
+private:
+    int q[P + 1][N + 1];
+    int front[P + 1], rear[P + 1];
+
+public:
+    PriorityQueue()
+    {
+        for (int i = 1; i <= P; i++)
+        {
+            front[i] = 0;
+            rear[i] = 0;
+        }
+    }
+
+    // INSERT
+    void insert()
+    {
+        int item, p;
+
+        cout << "Enter value: ";
+        cin >> item;
+
+        cout << "Enter priority (1 = high, 2 = medium, 3 = low): ";
+        cin >> p;
+
+        if (p < 1 || p > P)
+        {
+            cout << "Invalid priority\n";
+            return;
+        }
+
+        if (rear[p] == N)
+        {
+            cout << "Overflow in priority " << p << "\n";
+            return;
+        }
+
+        if (front[p] == 0)
+        {
+            front[p] = rear[p] = 1;
+        }
+        else
+        {
+            rear[p]++;
+        }
+
+        q[p][rear[p]] = item;
+
+        cout << "Inserted successfully\n";
+    }
+
+    // DELETE
+    void deleting()
+    {
+        int k = -1;
+
+        // find first non-empty priority queue (highest priority first)
+        for (int i = 1; i <= P; i++)
+        {
+            if (front[i] != 0)
+            {
+                k = i;
+                break;
+            }
+        }
+
+        if (k == -1)
+        {
+            cout << "UNDERFLOW (All queues empty)\n";
+            return;
+        }
+        /*
+        k = 2
+        q[2] = [30, 40]
+        front[2] = 1
+        */
+
+        int item = q[k][front[k]]; // item = q[2][1] = 30
+
+        cout << "Deleted: " << item << " from priority " << k << endl;
+
+        if (front[k] == rear[k]) // Check if queue becomes empty
+        {
+            front[k] = rear[k] = 0;
+        }
+        else
+        {
+            front[k]++;
+        }
+    }
+
+    // DISPLAY
+    void display()
+    {
+        cout << "\nPriority Queue State:\n";
+
+        for (int i = 1; i <= P; i++)
+        {
+            cout << "Priority " << i << ": ";
+
+            if (front[i] == 0)
+            {
+                cout << "Empty";
+            }
+            else
+            {
+                for (int j = front[i]; j <= rear[i]; j++)
+                {
+                    cout << q[i][j] << " ";
+                }
+            }
+
+            cout << endl;
+        }
+    }
 };
 
-Node* front = NULL;
+int main()
+{
+    PriorityQueue pq;
+    int choice;
 
-void insert(int data, int priority) {
-    Node* temp = new Node;
-    temp->data = data;
-    temp->priority = priority;
-    temp->next = NULL;
+    while (true)
+    {
+        cout << "\n--- Priority Queue Menu ---\n";
+        cout << "1. Insert\n";
+        cout << "2. Delete\n";
+        cout << "3. Display\n";
+        cout << "4. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
 
-    if (front == NULL || priority < front->priority) {
-        temp->next = front;
-        front = temp;
-    } else {
-        Node* ptr = front;
-        while (ptr->next != NULL &&
-               ptr->next->priority <= priority)
-            ptr = ptr->next;
+        switch (choice)
+        {
+        case 1:
+            pq.insert();
+            break;
 
-        temp->next = ptr->next;
-        ptr->next = temp;
+        case 2:
+            pq.deleting();
+            break;
+
+        case 3:
+            pq.display();
+            break;
+
+        case 4:
+            cout << "Exiting...\n";
+            return 0;
+
+        default:
+            cout << "Invalid choice\n";
+        }
     }
-}
-
-void deleteItem() {
-    if (front == NULL) {
-        cout << "Empty\n";
-        return;
-    }
-
-    Node* temp = front;
-    front = front->next;
-
-    cout << "Deleted: " << temp->data << endl;
-    delete temp;
-}
-
-void display() {
-    Node* ptr = front;
-
-    while (ptr) {
-        cout << ptr->data << "("
-             << ptr->priority << ") ";
-        ptr = ptr->next;
-    }
-    cout << endl;
-}
-
-int main() {
-    insert(10, 2);
-    insert(20, 1);
-    insert(30, 3);
-
-    display();
-
-    deleteItem();
-
-    display();
-
-    return 0;
 }

@@ -1,70 +1,168 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define SIZE 5
+#define N 100
 
-class CircularQueue {
-    int arr[SIZE];
+class Queue
+{
+private:
+    int queue[N + 1];
     int front, rear;
 
 public:
-    CircularQueue() {
-        front = rear = -1;
+    Queue()
+    {
+        front = 0;
+        rear = 0;
     }
 
-    void insert(int value) {
-        if ((rear + 1) % SIZE == front) {
-            cout << "Queue Full\n";
+    // Create queue
+    void createQueue(int n)
+    {
+        front = 1;
+        rear = n;
+
+        cout << "Enter queue elements : ";
+
+        for (int i = 1; i <= n; i++)
+        {
+            cin >> queue[i];
+        }
+    }
+
+    // Insert operation
+    void insert(int item)
+    {
+        if ((front == 1 && rear == N) ||
+            (front == rear + 1))
+        {
+            cout << "OVERFLOW" << endl;
             return;
         }
 
-        if (front == -1)
-            front = rear = 0;
+        if (rear == N)
+        {
+            rear = 1;
+        }
         else
-            rear = (rear + 1) % SIZE;
+        {
+            rear = rear + 1;
+        }
 
-        arr[rear] = value;
+        queue[rear] = item;
+
+        cout << item << "Inserted successfully!" << endl;
     }
 
-    void deleteItem() {
-        if (front == -1) {
-            cout << "Queue Empty\n";
+    // Delete operation
+    void deleting(int n)
+    {
+        if (front == 0)
+        {
+            cout << "UNDERFLOW" << endl;
             return;
         }
 
-        cout << "Deleted: " << arr[front] << endl;
+        int item = queue[front];
 
         if (front == rear)
-            front = rear = -1;
+        {
+            front = 0;
+            rear = 0;
+        }
+        else if (front == n)
+        {
+            front = 1;
+        }
         else
-            front = (front + 1) % SIZE;
+        {
+            front++;
+        }
+
+        cout << item << "  Deleted successfully..!!" << endl;
     }
 
-    void display() {
-        if (front == -1) return;
-
-        int i = front;
-        while (true) {
-            cout << arr[i] << " ";
-            if (i == rear) break;
-            i = (i + 1) % SIZE;
+    // Display queue
+    void display()
+    {
+        if (front == 0)
+        {
+            cout << "Queue is empty" << endl;
+            return;
         }
+
+        cout << "Queue elements are: ";
+
+        if (front <= rear)
+        {
+            for (int i = front; i <= rear; i++)
+            {
+                cout << queue[i] << " ";
+            }
+        }
+        else
+        {
+            for (int i = front; i <= N; i++)
+            {
+                cout << queue[i] << " ";
+            }
+
+            for (int i = 1; i <= rear; i++)
+            {
+                cout << queue[i] << " ";
+            }
+        }
+
         cout << endl;
     }
 };
 
-int main() {
-    CircularQueue q;
+int main()
+{
+    Queue q;
 
-    q.insert(10);
-    q.insert(20);
-    q.insert(30);
+    int n, choice, item;
 
-    q.display();
+    cout << "Enter number of elements : ";
+    cin >> n;
 
-    q.deleteItem();
+    q.createQueue(n);
 
-    q.display();
+    do
+    {
+        cout << "MEN : " << endl;
+        cout << "1. Insert" << endl;
+        cout << "2. Delete" << endl;
+        cout << "3. Display" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice : ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            cout << "Enter value to insert : ";
+            cin >> item;
+            q.insert(item);
+            break;
+
+        case 2:
+            q.deleting(n);
+            break;
+
+        case 3:
+            q.display();
+            break;
+
+        case 4:
+            cout << "Program terminated";
+            break;
+
+        default:
+            cout << "Invalid choice!";
+        }
+
+    } while (choice != 4);
 
     return 0;
 }
