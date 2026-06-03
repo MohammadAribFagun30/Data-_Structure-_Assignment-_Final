@@ -15,7 +15,7 @@ int main() {
     cin >> a >> b;
 
     int GCD = gcd(a, b);
-    long long LCM = (long long)a * b / GCD;
+    int LCM = (int)a * b / GCD;
 
     cout << "GCD = " << GCD << endl;
     cout << "LCM = " << LCM << endl;
