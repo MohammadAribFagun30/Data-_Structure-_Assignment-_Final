@@ -2,27 +2,24 @@
 using namespace std;
 
 #define P 3  // number of priority levels
-#define N 10 // size per queue
 
-class PriorityQueue
-{
+struct Node {
+    int data;
+    int priority;
+    Node* next;
+};
+
+class PriorityQueue {
 private:
-    int q[P + 1][N + 1];
-    int front[P + 1], rear[P + 1];
+    Node* front;
 
 public:
-    PriorityQueue()
-    {
-        for (int i = 1; i <= P; i++)
-        {
-            front[i] = 0;
-            rear[i] = 0;
-        }
+    PriorityQueue() {
+        front = NULL;
     }
 
     // INSERT
-    void insert()
-    {
+    void insert() {
         int item, p;
 
         cout << "Enter value: ";
@@ -31,105 +28,77 @@ public:
         cout << "Enter priority (1 = high, 2 = medium, 3 = low): ";
         cin >> p;
 
-        if (p < 1 || p > P)
-        {
+        if (p < 1 || p > P) {
             cout << "Invalid priority\n";
             return;
         }
 
-        if (rear[p] == N)
-        {
-            cout << "Overflow in priority " << p << "\n";
-            return;
-        }
+        Node* temp = new Node;
+        temp->data = item;
+        temp->priority = p;
+        temp->next = NULL;
 
-        if (front[p] == 0)
-        {
-            front[p] = rear[p] = 1;
+        // insert at beginning if empty or higher priority
+        if (front == NULL || p < front->priority) {
+            temp->next = front;
+            front = temp;
         }
-        else
-        {
-            rear[p]++;
-        }
+        else {
+            Node* ptr = front;
 
-        q[p][rear[p]] = item;
+            while (ptr->next != NULL &&
+                   ptr->next->priority <= p) {
+                ptr = ptr->next;
+            }
+
+            temp->next = ptr->next;
+            ptr->next = temp;
+        }
 
         cout << "Inserted successfully\n";
     }
 
     // DELETE
-    void deleting()
-    {
-        int k = -1;
-
-        // find first non-empty priority queue (highest priority first)
-        for (int i = 1; i <= P; i++)
-        {
-            if (front[i] != 0)
-            {
-                k = i;
-                break;
-            }
-        }
-
-        if (k == -1)
-        {
-            cout << "UNDERFLOW (All queues empty)\n";
+    void deleting() {
+        if (front == NULL) {
+            cout << "UNDERFLOW (Queue empty)\n";
             return;
         }
-        /*
-        k = 2
-        q[2] = [30, 40]
-        front[2] = 1
-        */
 
-        int item = q[k][front[k]]; // item = q[2][1] = 30
+        Node* temp = front;
 
-        cout << "Deleted: " << item << " from priority " << k << endl;
+        cout << "Deleted: " << temp->data
+             << " (priority " << temp->priority << ")\n";
 
-        if (front[k] == rear[k]) // Check if queue becomes empty
-        {
-            front[k] = rear[k] = 0;
-        }
-        else
-        {
-            front[k]++;
-        }
+        front = front->next;
+        delete temp;
     }
 
     // DISPLAY
-    void display()
-    {
-        cout << "\nPriority Queue State:\n";
-
-        for (int i = 1; i <= P; i++)
-        {
-            cout << "Priority " << i << ": ";
-
-            if (front[i] == 0)
-            {
-                cout << "Empty";
-            }
-            else
-            {
-                for (int j = front[i]; j <= rear[i]; j++)
-                {
-                    cout << q[i][j] << " ";
-                }
-            }
-
-            cout << endl;
+    void display() {
+        if (front == NULL) {
+            cout << "Queue is empty\n";
+            return;
         }
+
+        Node* ptr = front;
+
+        cout << "Priority Queue:\n";
+
+        while (ptr != NULL) {
+            cout << ptr->data << "(" << ptr->priority << ") ";
+            ptr = ptr->next;
+        }
+
+        cout << endl;
     }
 };
 
-int main()
-{
+int main() {
     PriorityQueue pq;
     int choice;
 
-    while (true)
-    {
+    while (true) {
         cout << "\n--- Priority Queue Menu ---\n";
         cout << "1. Insert\n";
         cout << "2. Delete\n";
@@ -138,8 +107,7 @@ int main()
         cout << "Enter choice: ";
         cin >> choice;
 
-        switch (choice)
-        {
+        switch (choice) {
         case 1:
             pq.insert();
             break;
