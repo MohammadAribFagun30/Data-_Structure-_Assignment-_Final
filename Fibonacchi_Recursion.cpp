@@ -1,14 +1,14 @@
 #include <iostream>
 using namespace std;
 
-// Recursive
-int fibRec(int n) {
+
+int FiboRec(int n) {
     if (n <= 1) return n;
-    return fibRec(n - 1) + fibRec(n - 2);
+    return FiboRec(n - 1) + FiboRec(n - 2);
 }
 
 // Non-recursive
-int fibIter(int n) {
+int FiboIter(int n) {
     if (n <= 1) return n;
 
     int a = 0, b = 1, c;
@@ -24,8 +24,8 @@ int main() {
     int n;
     cin >> n;
 
-    cout << "Recursive: " << fibRec(n) << endl;
-    cout << "Non-Recursive: " << fibIter(n) << endl;
+    cout << "Recursive: " << FiboRec(n) << endl;
+    cout << "Non-Recursive: " << FiboIter(n) << endl;
 
     return 0;
 }

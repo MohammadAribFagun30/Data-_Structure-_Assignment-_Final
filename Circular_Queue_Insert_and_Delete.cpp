@@ -36,7 +36,7 @@ public:
         if ((front == 1 && rear == N) ||
             (front == rear + 1))
         {
-            cout << "OVERFLOW" << endl;
+            cout << "OVERFLOW"<<endl;
             return;
         }
 
@@ -51,7 +51,7 @@ public:
 
         queue[rear] = item;
 
-        cout << item << "Inserted successfully!" << endl;
+        cout << item << "Inserted successfully!"<<endl;
     }
 
     // Delete operation
@@ -59,7 +59,7 @@ public:
     {
         if (front == 0)
         {
-            cout << "UNDERFLOW" << endl;
+            cout << "UNDERFLOW"<<endl;
             return;
         }
 
@@ -78,8 +78,8 @@ public:
         {
             front++;
         }
-
-        cout << item << "  Deleted successfully..!!" << endl;
+        
+        cout << item  << "  Deleted successfully..!!"<<endl;
     }
 
     // Display queue
@@ -87,7 +87,7 @@ public:
     {
         if (front == 0)
         {
-            cout << "Queue is empty" << endl;
+            cout << "Queue is empty"<<endl;
             return;
         }
 
@@ -130,11 +130,11 @@ int main()
 
     do
     {
-        cout << "MEN : " << endl;
-        cout << "1. Insert" << endl;
-        cout << "2. Delete" << endl;
-        cout << "3. Display" << endl;
-        cout << "4. Exit" << endl;
+        cout << "MEN : "<<endl;
+        cout << "1. Insert"<< endl;
+        cout << "2. Delete"<< endl;
+        cout << "3. Display"<< endl;
+        cout << "4. Exit"<< endl;
         cout << "Enter your choice : ";
         cin >> choice;
 
