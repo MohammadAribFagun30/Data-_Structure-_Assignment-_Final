@@ -10,13 +10,40 @@ void TOWER(int n, char BEG, char AUX, char END)
     }
 
     // Move n-1 disks from BEG to AUX
-    TOWER(n - 1, BEG, END, AUX);
+
+    // Move 3 disks from A to B using C as helper.
+ /*  A       B       C
+
+             1
+             2
+
+    3  */
+
+
+    TOWER(n - 1, BEG /*A*/ , END/*C*/, AUX/*B*/);
 
     // Move largest disk from BEG to END
+
+     /*  A       B       C
+
+                 1
+                 2        3     */
+
+
     cout << BEG << " -> " << END << endl;
 
     // Move n-1 disks from AUX to END
-    TOWER(n - 1, AUX, BEG, END);
+    
+    // Move 2 disks from B to C using A as helper.
+
+    /*
+    A       B       C
+
+                     1
+                     2
+                     3
+    */
+    TOWER(n - 1, AUX/*B*/, BEG/*A*/, END/*C*/);
 }
 
 int main()
