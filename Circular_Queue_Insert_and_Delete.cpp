@@ -40,7 +40,7 @@ public:
             return;
         }
 
-        if (rear == N)
+        else if (rear == N)
         {
             rear = 1;
         }
