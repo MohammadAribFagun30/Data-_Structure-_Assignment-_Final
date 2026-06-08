@@ -46,7 +46,7 @@ public:
         }
         else
         {
-            rear = rear + 1;
+            rear++;
         }
 
         queue[rear] = item;
