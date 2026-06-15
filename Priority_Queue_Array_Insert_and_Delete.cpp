@@ -43,7 +43,7 @@ public:
             return;
         }
 
-        if (front[p] == 0)
+        else if (front[p] == 0)
         {
             front[p] = rear[p] = 1;
         }
