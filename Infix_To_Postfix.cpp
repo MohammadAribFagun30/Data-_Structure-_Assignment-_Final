@@ -1,106 +1,78 @@
-#include <iostream>
-#include <cstring>
+#include <bits/stdc++.h>
 using namespace std;
 
-#define MAX 100
+char st[100];
+int top = -1;
 
-class Stack {
-private:
-    char arr[MAX];
-    int top;
+void push(char ch)
+{
+    st[++top] = ch;
+}
 
-public:
-    Stack() {
-        top = -1;
-    }
+char pop()
+{
+    return st[top--];
+}
 
-    void push(char value) {
-        arr[++top] = value;
-    }
+char whoistop()
+{
+    return st[top];
+}
 
-    char pop() {
-        return arr[top--];
-    }
-
-    char peek() {
-        return arr[top];
-    }
-
-    bool isEmpty() {
-        return top == -1;
-    }
-};
-
-// precedence function
-int precedence(char op) {
-    if (op == '+' || op == '-') return 1;
-    if (op == '*' || op == '/') return 2;
+int precedence(char op)
+{
+    if (op == '^')
+        return 3;
+    else if (op == '*' || op == '/')
+        return 2;
+    else if (op == '+' || op == '-')
+        return 1;
     return 0;
 }
 
-// check operator
-bool isOperator(char c) {
-    return (c == '+' || c == '-' || c == '*' || c == '/');
-}
+int main()
+{
+    string infix, postfix = "";
 
-void infixToPostfix(char infix[], char postfix[]) {
-    Stack st;
-    int j = 0;
+    cout << "Enter Infix : ";
+    cin >> infix;
 
-    // Step 1: push '(' and add ')' at end
-    st.push('(');
-    int n = strlen(infix);
-    infix[n] = ')';
-    infix[n + 1] = '\0';
-
-    // Step 2: scan left to right
-    for (int i = 0; i < strlen(infix); i++) {
-
-        char ch = infix[i];
-
-        // Step 3: operand → add to postfix
-        if ((ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
-            postfix[j++] = ch;
+    for (char ch : infix)
+    {
+        if (isalnum(ch))
+        {
+            postfix += ch;
         }
-
-        // Step 4: left parenthesis
-        else if (ch == '(') {
-            st.push(ch);
+        else if (ch == '(')
+        {
+            push(ch);
         }
-
-        // Step 5: operator
-        else if (isOperator(ch)) {
-
-            while (!st.isEmpty() && precedence(st.peek()) >= precedence(ch)) {
-                postfix[j++] = st.pop();
+        else if (ch == ')')
+        {
+            while (top != -1 && whoistop() != '(')
+            {
+                postfix += pop();
             }
-
-            st.push(ch);
+            pop(); // remove '('
         }
-
-        // Step 6: right parenthesis
-        else if (ch == ')') {
-
-            while (!st.isEmpty() && st.peek() != '(') {
-                postfix[j++] = st.pop();
+        else
+        {
+            while (top != -1 &&
+                   whoistop() != '(' &&
+                   precedence(whoistop()) >= precedence(ch))
+            {
+                postfix += pop();
             }
-
-            st.pop(); // remove '('
+            push(ch);
         }
     }
 
-    postfix[j] = '\0';
-}
+    while (top != -1)
+    {
+        postfix += pop();
+    }
 
-int main() {
-    char infix[MAX], postfix[MAX];
-
-    cout << "Enter Infix Expression: ";
-    cin >> infix;
-
-    infixToPostfix(infix, postfix);
-
-    cout << "Postfix Expression: " << postfix << endl;
+    cout << "Postfix : " << postfix << endl;
 
     return 0;
 }
