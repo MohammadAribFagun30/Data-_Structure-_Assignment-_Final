@@ -37,7 +37,7 @@ public:
             return;
         }
 
-        if (rear[p] == N)
+        else if (rear[p] == N)
         {
             cout << "Overflow in priority " << p << "\n";
             return;
@@ -63,6 +63,11 @@ public:
         int k = -1;
 
         // find first non-empty priority queue (highest priority first)
+        /*
+        front[1] = 0
+        front[2] = [30,40]
+        front[3] = [50,60]
+        */
         for (int i = 1; i <= P; i++)
         {
             if (front[i] != 0)
