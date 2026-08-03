@@ -14,7 +14,7 @@ char pop()
     return st[top--];
 }
 
-char whoistop()
+char peek()
 {
     return st[top];
 }
@@ -49,7 +49,7 @@ int main()
         }
         else if (ch == ')')
         {
-            while (top != -1 && whoistop() != '(')
+            while (top != -1 && peek() != '(')
             {
                 postfix += pop();
             }
@@ -58,8 +58,8 @@ int main()
         else
         {
             while (top != -1 &&
-                   whoistop() != '(' &&
-                   precedence(whoistop()) >= precedence(ch))
+                   peek() != '(' &&
+                   precedence(peek()) >= precedence(ch))
             {
                 postfix += pop();
             }

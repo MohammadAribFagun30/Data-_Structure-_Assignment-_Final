@@ -1,66 +1,76 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define MAX 100
 
-class Stack {
+class Stack
+{
 private:
     int arr[MAX];
     int top;
 
 public:
-    Stack() {
+    Stack()
+    {
         top = -1;
     }
 
     // Push function
-    void push(int value) {
+    void push(int value)
+    {
         arr[++top] = value;
     }
 
     // Pop function
-    int pop() {
+    int pop()
+    {
         return arr[top--];
     }
 
     // Get top element
-    int peek() {
+    int peek()
+    {
         return arr[top]; // Returns top element without removing.
     }
 };
 
 // Function to evaluate postfix expression
-int evaluatePostfix(char exp[]) {
+int evaluatePostfix(char exp[])
+{
     Stack st;
 
-    for (int i = 0; i < strlen(exp); i++) {
+    for (int i = 0; i < strlen(exp); i++)
+    {
 
         // If operand
-        if (isdigit(exp[i])) {
+        if (isdigit(exp[i]))
+        {
             st.push(exp[i] - '0');
         }
 
         // If operator
-        else {
+        else
+        {
             int A = st.pop();
             int B = st.pop();
 
-            switch (exp[i]) {
-                case '+':
-                    st.push(B + A);
-                    break;
+            switch (exp[i])
+            {
+            case '+':
+                st.push(B + A);
+                break;
 
-                case '-':
-                    st.push(B - A);
-                    break;
+            case '-':
+                st.push(B - A);
+                break;
 
-                case '*':
-                    st.push(B * A);
-                    break;
+            case '*':
+                st.push(B * A);
+                break;
 
-                case '/':
-                    st.push(B / A);
-                    break;
+            case '/':
+                st.push(B / A);
+                break;
             }
         }
     }
@@ -68,7 +78,8 @@ int evaluatePostfix(char exp[]) {
     return st.peek();
 }
 
-int main() {
+int main()
+{
     char postfix[MAX];
 
     cout << "Enter Postfix Expression: ";

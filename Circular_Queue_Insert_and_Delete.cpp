@@ -33,6 +33,9 @@ public:
     // Insert operation
     void insert(int item)
     {
+        cout << "Enter value to insert : ";
+            cin >> item;
+            
         if ((front == 1 && rear == N) ||
             (front == rear + 1))
         {
@@ -141,8 +144,6 @@ int main()
         switch (choice)
         {
         case 1:
-            cout << "Enter value to insert : ";
-            cin >> item;
             q.insert(item);
             break;
 
